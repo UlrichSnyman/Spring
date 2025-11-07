@@ -32,6 +32,7 @@ public class TacoOrder implements Serializable {
   private String deliveryCity;
 
   @NotBlank(message="State is required")
+  @Pattern(regexp="^[A-Za-z]{2}$", message="State must be a 2-letter code")
   private String deliveryState;
 
   @NotBlank(message="Zip code is required")
