@@ -11,6 +11,8 @@ import org.springframework.security.config.annotation
              .authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web
              .builders.HttpSecurity;
+import org.springframework.security.config.annotation.web
+             .builders.WebSecurity;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -48,6 +50,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
           .frameOptions()
             .sameOrigin()
       ;
+  }
+
+  @Override
+  public void configure(WebSecurity web) throws Exception {
+    web.ignoring().antMatchers(
+      "/images/**",
+      "/css/**",
+      "/js/**",
+      "/webjars/**",
+      "/favicon.ico",
+      "/static/**"
+    );
   }
 
   @Bean
