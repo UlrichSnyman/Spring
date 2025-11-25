@@ -1,10 +1,7 @@
-version: "3.8"
-
 services:
   # SERVICE 1: The Database
   postgresdb:
-    image: postgres
-    container_name: postgresdb
+    image: postgres:16
     restart: unless-stopped
     env_file: ./.env
     environment:
@@ -15,13 +12,20 @@ services:
       - $POSTGRESDB_LOCAL_PORT:$POSTGRESDB_DOCKER_PORT
     volumes:
       - db_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $POSTGRESDB_USER -d $POSTGRESDB_DATABASE"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
   # SERVICE 2: The Spring Boot App
   app:
     depends_on:
-      - postgresdb
-    build: ./bezkoder-app
-    container_name: bezkoder-app
+      postgresdb:
+        condition: service_healthy
+    image: bezkoder-app
+    build:
+      context: ./bezkoder-app
     restart: on-failure
     env_file: ./.env
     ports:

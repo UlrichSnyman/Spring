@@ -1,5 +1,5 @@
 # 1. Start with a base image that has Java 21 and Maven installed
-FROM maven:3.8.5-openjdk-21
+FROM maven:3.9.6-eclipse-temurin-21
 
   # 2. Set the working directory inside the container
   #    (This creates a folder inside the Docker "virtual machine")
