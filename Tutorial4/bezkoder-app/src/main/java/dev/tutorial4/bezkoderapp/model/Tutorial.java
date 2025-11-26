@@ -19,6 +19,10 @@ public class Tutorial {
     @Column(name = "published")
     private boolean published;
 
+    public Tutorial() {
+
+    }
+
     public Tutorial(String title, String description, boolean published) {
         this.title = title;
         this.description = description;
@@ -57,5 +61,10 @@ public class Tutorial {
 
     public void setPublished(boolean published) {
         this.published = published;
+    }
+
+    @Override
+    public String toString() {
+        return "Tutorial [id=" + id + ", title=" + title + ", description=" + description + ", published=" + published + "]";
     }
 }
