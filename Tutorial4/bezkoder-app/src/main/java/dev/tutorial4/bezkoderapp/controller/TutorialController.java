@@ -21,7 +21,9 @@ public class TutorialController {
 
     @PostMapping("/tutorials")
     public Tutorial createTutorial(@RequestBody Tutorial tutorial) {
-        return tutorialRepository.save(new Tutorial(tutorial.getTitle(), tutorial.getDescription(), true));
+        Tutorial _tutorial = new Tutorial(tutorial.getTitle(), tutorial.getDescription(), false);
+        tutorialRepository.save(_tutorial);
+        return _tutorial;
     }
 
     @GetMapping("/test")
