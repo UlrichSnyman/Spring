@@ -27,6 +27,19 @@ public class BeerController {
 
     private final BeerService beerService;
 
+    // Add this line to tell Spring to return 404 instead of 500
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public class NotFoundException extends RuntimeException {
+
+        public NotFoundException() {
+            super();
+        }
+
+        public NotFoundException(String message) {
+            super(message);
+        }
+    }
+
     @GetMapping(produces = { "application/json" }, path = "beer")
     public ResponseEntity<BeerPagedList> listBeers(@RequestParam(value = "pageNumber", required = false) Integer pageNumber,
                                                    @RequestParam(value = "pageSize", required = false) Integer pageSize,
